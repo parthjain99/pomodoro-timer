@@ -240,7 +240,7 @@ function MainApp() {
   }
 
   return (
-    <div className={`app ${isDesktop ? 'desktop' : 'web'} theme-${settings.theme}`}>
+    <div className={`app ${isDesktop ? 'desktop' : 'web'} theme-${isDesktop ? 'default' : settings.theme}`}>
       <header className="topbar">
         <div className="brand">
           <img className="brand-logo" src={logo} alt="" />
@@ -298,13 +298,15 @@ function MainApp() {
               <input type="checkbox" checked={settings.checkToBottom} onChange={(e) => updateSetting('checkToBottom', e.target.checked)} />
               Move finished tasks to the bottom
             </label>
-            <label className="field">
-              Theme
-              <select value={settings.theme} onChange={(e) => updateSetting('theme', e.target.value)}>
-                <option value="default">Default</option>
-                <option value="halloween">Halloween</option>
-              </select>
-            </label>
+            {!isDesktop && (
+              <label className="field">
+                Theme
+                <select value={settings.theme} onChange={(e) => updateSetting('theme', e.target.value)}>
+                  <option value="default">Default</option>
+                  <option value="halloween">Halloween</option>
+                </select>
+              </label>
+            )}
             {isDesktop && (
               <label className="field">
                 Analytics week starts on

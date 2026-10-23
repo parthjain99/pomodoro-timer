@@ -1,5 +1,4 @@
-const { app, BrowserWindow, session, protocol, net, ipcMain, Notification, shell, dialog } = require('electron');
-const { autoUpdater } = require('electron-updater');
+const { app, BrowserWindow, session, protocol, net, ipcMain, Notification, shell } = require('electron');
 const path = require('path');
 const { pathToFileURL } = require('url');
 
@@ -99,31 +98,10 @@ ipcMain.on('timer:state', (_e, state) => miniWin?.webContents.send('timer:update
 ipcMain.on('timer:request', () => mainWin?.webContents.send('timer:resend'));
 ipcMain.on('timer:command', (_e, command) => mainWin?.webContents.send('timer:command', command));
 
-// Checks GitHub for a newer release. Downloads it in the background, then asks the user to restart.
-// Updates are optional: any failure is ignored so the timer keeps working.
-function setupAutoUpdate() {
-  if (!app.isPackaged) return;
-  autoUpdater.autoDownload = true;
-  autoUpdater.on('update-downloaded', async () => {
-    const { response } = await dialog.showMessageBox(mainWin, {
-      type: 'info',
-      buttons: ['Restart now', 'Later'],
-      defaultId: 0,
-      title: 'Update ready',
-      message: 'A new version of Pomodoro is ready.',
-      detail: 'Restart to install it.',
-    });
-    if (response === 0) autoUpdater.quitAndInstall();
-  });
-  autoUpdater.on('error', () => {});
-  autoUpdater.checkForUpdates().catch(() => {});
-}
-
 app.whenReady().then(() => {
   registerAppProtocol();
   setYouTubeReferer();
   createMainWindow();
-  setupAutoUpdate();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow();
   });
