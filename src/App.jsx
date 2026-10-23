@@ -251,7 +251,7 @@ function MainApp() {
     <div className={`app ${isDesktop ? 'desktop' : 'web'}`} style={themeStyle(activeTheme)}>
       <header className="topbar">
         <div className="brand">
-          <img className="brand-logo" src={logo} alt="" />
+          <img className="brand-logo" src={activeTheme.logo || logo} alt="" />
           Pomodoro
         </div>
         <button
