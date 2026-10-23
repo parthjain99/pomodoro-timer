@@ -491,3 +491,8 @@ html, body, * {
 /* drag and drop task reordering */
 .task-list li[draggable] { cursor: grab; }
 .task-list li.drop-target { box-shadow: inset 0 3px 0 var(--violet); }
+
+/* ---- settings dialog ---- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+.modal { width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; }
