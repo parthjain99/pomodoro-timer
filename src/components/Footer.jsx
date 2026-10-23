@@ -1,7 +1,3 @@
-// Set this to your Buy Me a Coffee page, e.g. 'https://www.buymeacoffee.com/yourname'.
-// The button stays hidden while this is empty.
-export const BUY_ME_A_COFFEE_URL = 'https://buymeacoffee.com/parthjain99';
-
 const FEATURES = [
   ['Timer', 'focus and break cycles with adjustable lengths, a clock that counts down, and a mini always-on-top window.'],
   ['Task list', 'add tasks with an estimated number of pomodoros, mark them done, and pick the one you are working on.'],
@@ -31,11 +27,6 @@ export default function Footer() {
           </ul>
         </div>
       </section>
-      {BUY_ME_A_COFFEE_URL && (
-        <a className="coffee-btn" href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer">
-          Buy me a coffee
-        </a>
-      )}
     </footer>
   );
 }
