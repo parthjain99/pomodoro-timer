@@ -52,6 +52,14 @@
       "category": "Utility",
       "artifactName": "Pomodoro-linux-x64.${ext}"
     },
-    "artifactName": "Pomodoro-${os}-${arch}.${ext}"
+    "artifactName": "Pomodoro-${os}-${arch}.${ext}",
+    "publish": {
+      "provider": "github",
+      "owner": "parthjain99",
+      "repo": "pomodoro-timer"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9"
   }
 }
