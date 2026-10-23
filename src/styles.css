@@ -518,3 +518,6 @@ html, body, * {
 .theme-halloween .check.on { background: #ff7518; border-color: #ff7518; }
 .theme-halloween .download-btn.primary { background: #ff7518; border-color: #ff7518; }
 .theme-halloween .breakdown-fill { background-color: #ff7518; }
+
+/* the page background sits on body, above the app container, so it needs its own rule */
+body:has(.theme-halloween) { background: #120b1a; color: #f3e8ff; }
