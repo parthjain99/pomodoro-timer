@@ -4,6 +4,7 @@ import Downloads from './Downloads.jsx';
 const CONNECT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/parthjain99' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/parthhjain/' },
+  { label: 'Email', url: 'mailto:parthjain99@proton.me' },
 ];
 
 const FEATURES = [
