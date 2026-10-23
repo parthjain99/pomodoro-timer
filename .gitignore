@@ -13,3 +13,5 @@ brag-output/*
 !brag-output/brag.mp4
 .vercel
 .env*
+
+.claude/
