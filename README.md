@@ -6,6 +6,12 @@
 
 A desktop Pomodoro timer with tasks, projects, analytics, and an optional YouTube player that follows the timer.
 
+## Demo
+
+https://github.com/parthjain99/pomodoro-timer/raw/main/brag-output/brag.mp4
+
+<video src="brag-output/brag.mp4" controls width="720"></video>
+
 ## Download
 
 Get the installer for your system from the [v0.1.0 release](https://github.com/parthjain99/pomodoro-timer/releases/tag/v0.1.0).

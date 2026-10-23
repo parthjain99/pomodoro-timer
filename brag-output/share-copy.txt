@@ -1,1 +1,0 @@
-Made Pomodoro, a desktop timer where the YouTube player follows the timer. Press play in the video and your focus session starts.

@@ -7,3 +7,7 @@ release/
 *.log
 .env
 .env.*
+
+# brag video: keep only the rendered video tracked
+brag-output/*
+!brag-output/brag.mp4
