@@ -1,10 +1,8 @@
-// Installers on the v0.1.0 GitHub release. The file names must match the files attached to that release.
-const RELEASE = 'https://github.com/parthjain99/pomodoro-timer/releases/download/v0.1.0/';
-
+// Installers hosted on Vercel Blob.
 const DOWNLOADS = [
-  { os: 'mac', label: 'macOS', file: 'Pomodoro-0.1.0-arm64.dmg', note: 'Apple Silicon' },
-  { os: 'windows', label: 'Windows', file: 'Pomodoro%20Setup%200.1.0.exe', note: '64-bit' },
-  { os: 'linux', label: 'Linux', file: 'Pomodoro-0.1.0.AppImage', note: '64-bit AppImage' },
+  { os: 'mac', label: 'macOS', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro-0.1.0-arm64-A2SG7wkZtZR3A7XuJyFQ3KjhFSs4JM.dmg', note: 'Apple Silicon' },
+  { os: 'windows', label: 'Windows', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro%20Setup%200.1.0-ioxlDZTFge6qChwlnPSW30wFjVtuQN.exe', note: '64-bit' },
+  { os: 'linux', label: 'Linux', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro-0.1.0-Ulrik1YhlrqbcDt4MydTEDM7nTROVA.AppImage', note: '64-bit AppImage' },
 ];
 
 // Works out the visitor's system from the browser. Returns 'mac', 'windows', 'linux', or null.
@@ -30,7 +28,7 @@ export default function Downloads() {
         {ordered.map((d) => (
           <a
             key={d.os}
-            href={RELEASE + d.file}
+            href={d.url}
             className={`download-btn ${d.os === current ? 'primary' : ''}`}
             target="_blank"
             rel="noopener noreferrer"
