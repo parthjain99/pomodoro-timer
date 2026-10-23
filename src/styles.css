@@ -429,9 +429,6 @@ html, body, * {
 }
 .mini-close:hover { color: var(--text); background: var(--bg); filter: none; }
 
-/* ---- show on screen options ---- */
-.show-grid { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
-.show-title { width: 100%; font-weight: 600; font-size: 13px; color: var(--text); }
 
 /* single column: every panel stacks in one list */
 .columns { grid-template-columns: minmax(0, 1fr); }
