@@ -6,6 +6,7 @@ import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
 import MiniTimer from './components/MiniTimer.jsx';
+import Footer from './components/Footer.jsx';
 import logo from './assets/logo.png';
 import { GearIcon, PauseIcon, PictureIcon, PlayIcon, ResetIcon, SkipIcon } from './components/Icons.jsx';
 
@@ -367,6 +368,8 @@ function MainApp() {
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

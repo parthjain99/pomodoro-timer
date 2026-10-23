@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session, protocol, net, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, session, protocol, net, ipcMain, Notification, shell } = require('electron');
 const path = require('path');
 const { pathToFileURL } = require('url');
 
@@ -48,6 +48,11 @@ function createMainWindow() {
     minHeight: 560,
     title: 'Pomodoro',
     webPreferences: webPrefs(),
+  });
+  // Links that open in a new window (like the coffee button) go to the system browser.
+  mainWin.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
   });
   mainWin.on('closed', () => {
     mainWin = null;

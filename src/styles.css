@@ -435,3 +435,19 @@ html, body, * {
 
 /* single column: every panel stacks in one list */
 .columns { grid-template-columns: minmax(0, 1fr); }
+
+/* ---- footer: features list and coffee button ---- */
+.site-footer { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.features-tagline { margin: 0 0 10px; color: var(--muted); }
+.features-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.coffee-btn {
+  align-self: center;
+  background: #ffdd00;
+  border-color: #ffdd00;
+  color: #111111;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.coffee-btn:hover { filter: brightness(0.95); }
