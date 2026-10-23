@@ -16,6 +16,7 @@ export const DEFAULT_SETTINGS = {
   autoCheckTasks: false,
   checkToBottom: false,
   weekStart: 'monday',
+  theme: 'default',
 };
 
 export function phaseSeconds(settings, phase) {
