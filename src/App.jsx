@@ -207,7 +207,7 @@ function MainApp() {
   }
 
   return (
-    <div className="app">
+    <div className={`app ${isDesktop ? 'desktop' : 'web'}`}>
       <header className="topbar">
         <div className="brand">
           <img className="brand-logo" src={logo} alt="" />
@@ -342,7 +342,7 @@ function MainApp() {
         </div>
       </div>
 
-      <Footer />
+      {!isDesktop && <Footer />}
       {!isDesktop && <CookieNotice />}
     </div>
   );
