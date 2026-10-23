@@ -300,7 +300,7 @@ function MainApp() {
             </label>
             {isDesktop && (
               <label className="field">
-                Start of the week
+                Analytics week starts on
                 <select value={settings.weekStart} onChange={(e) => updateSetting('weekStart', e.target.value)}>
                   <option value="monday">Monday</option>
                   <option value="sunday">Sunday</option>
