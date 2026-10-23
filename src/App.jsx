@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_SETTINGS, PHASE_LABEL, formatClock, useTimer } from './lib/timer.js';
 import { loadState, saveState } from './lib/storage.js';
-import { playAlarm, primeAudio } from './lib/alarm.js';
+import { playAlarm, playTick, primeAudio } from './lib/alarm.js';
 import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
@@ -92,6 +92,26 @@ function MainApp() {
   const { phase, running, left } = timer;
   const clock = formatClock(left);
   const phaseLabel = PHASE_LABEL[phase];
+
+  // Optional ticking during focus only. Reads the volume through a ref so moving the
+  // slider does not restart the interval (and shift the tick timing).
+  const tickVolumeRef = useRef(settings.tickVolume);
+  tickVolumeRef.current = settings.tickVolume;
+  useEffect(() => {
+    if (!running || phase !== 'focus' || !settings.tick) return undefined;
+    const startedAt = Date.now();
+    let lastSec = 0;
+    // Poll briefly, but only play when a new whole second has elapsed since start, so
+    // ticks land on whole-second boundaries and never accumulate drift.
+    const id = setInterval(() => {
+      const sec = Math.floor((Date.now() - startedAt) / 1000);
+      if (sec > lastSec) {
+        lastSec = sec;
+        playTick(tickVolumeRef.current);
+      }
+    }, 100);
+    return () => clearInterval(id);
+  }, [running, phase, settings.tick]);
 
   useEffect(() => {
     document.title = `${clock} · ${phaseLabel}`;
@@ -244,6 +264,24 @@ function MainApp() {
                 onChange={(e) => updateSetting('alarm', e.target.checked)}
               />
               Alarm at the end of each phase
+            </label>
+            <label className="check-row">
+              <input
+                type="checkbox"
+                checked={settings.tick}
+                onChange={(e) => updateSetting('tick', e.target.checked)}
+              />
+              Ticking sound during focus
+            </label>
+            <label className="field">
+              Tick volume ({settings.tickVolume})
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={settings.tickVolume}
+                onChange={(e) => updateSetting('tickVolume', Number(e.target.value))}
+              />
             </label>
             <div className="shortcuts">
               {SHORTCUTS.map(([key, label]) => (
