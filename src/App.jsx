@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_SETTINGS, PHASE_LABEL, formatClock, useTimer } from './lib/timer.js';
 import { loadState, saveState } from './lib/storage.js';
-import { playAlarm, primeAudio } from './lib/alarm.js';
+import { playAlarm, playTick, primeAudio } from './lib/alarm.js';
 import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
@@ -92,6 +92,24 @@ function MainApp() {
   const { phase, running, left } = timer;
   const clock = formatClock(left);
   const phaseLabel = PHASE_LABEL[phase];
+
+  // Ticking during focus, only in the last 10 seconds. Reads the volume and the remaining
+  // time through refs so moving the slider or the clock does not restart the interval.
+  const leftRef = useRef(left);
+  leftRef.current = left;
+  useEffect(() => {
+    if (!running || phase !== 'focus' || !settings.tick) return undefined;
+    let lastTicked = null;
+    // Each remaining second from 10 down to 1 gets exactly one tick.
+    const id = setInterval(() => {
+      const remaining = leftRef.current;
+      if (remaining <= 10 && remaining > 0 && remaining !== lastTicked) {
+        lastTicked = remaining;
+        playTick();
+      }
+    }, 100);
+    return () => clearInterval(id);
+  }, [running, phase, settings.tick]);
 
   useEffect(() => {
     document.title = `${clock} · ${phaseLabel}`;
@@ -244,6 +262,14 @@ function MainApp() {
                 onChange={(e) => updateSetting('alarm', e.target.checked)}
               />
               Alarm at the end of each phase
+            </label>
+            <label className="check-row">
+              <input
+                type="checkbox"
+                checked={settings.tick}
+                onChange={(e) => updateSetting('tick', e.target.checked)}
+              />
+              Tick during the last 10 seconds of focus
             </label>
             <div className="shortcuts">
               {SHORTCUTS.map(([key, label]) => (

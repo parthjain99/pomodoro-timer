@@ -11,6 +11,27 @@ export function primeAudio() {
   }
 }
 
+// One short, quiet click (about 20 ms). volume is 0-100.
+export function playTick() {
+  try {
+    primeAudio();
+    if (!ctx) return;
+    const t0 = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = 1800;
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(0.5, t0 + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.07);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(t0);
+    osc.stop(t0 + 0.08);
+  } catch {
+    // audio unavailable
+  }
+}
+
 // Three short beeps.
 export function playAlarm() {
   try {

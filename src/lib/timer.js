@@ -8,6 +8,7 @@ export const DEFAULT_SETTINGS = {
   syncVideo: true,
   volume: 50,
   alarm: true,
+  tick: false,
   defaultVideo: null,
 };
 
