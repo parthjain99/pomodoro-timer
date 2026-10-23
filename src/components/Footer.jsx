@@ -1,7 +1,7 @@
 // Links for the Connect with me section. A link with an empty url is hidden.
 const CONNECT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/parthjain99' },
-  { label: 'LinkedIn', url: '' },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/parthhjain/' },
 ];
 
 const FEATURES = [
