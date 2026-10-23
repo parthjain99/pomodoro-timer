@@ -7,6 +7,7 @@ import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
 import Analytics from './components/Analytics.jsx';
 import { sortDoneToBottom } from './lib/tasks.js';
+import { useThemes, themeStyle } from './lib/themes.js';
 import MiniTimer from './components/MiniTimer.jsx';
 import Footer from './components/Footer.jsx';
 import CookieNotice from './components/CookieNotice.jsx';
@@ -155,6 +156,13 @@ function MainApp() {
 
   // The mini timer window only exists in the desktop app.
   const isDesktop = typeof window !== 'undefined' && Boolean(window.pomodoro);
+  // Themes come from the website only; the desktop app always uses the default look.
+  const themes = useThemes(!isDesktop);
+  const activeTheme = isDesktop ? themes[0] : themes.find((t) => t.id === settings.theme) || themes[0];
+  useEffect(() => {
+    document.body.style.background = activeTheme.colors.bg;
+    document.body.style.color = activeTheme.colors.text;
+  }, [activeTheme]);
 
   function toggleMini() {
     if (!isDesktop) return;
@@ -240,7 +248,7 @@ function MainApp() {
   }
 
   return (
-    <div className={`app ${isDesktop ? 'desktop' : 'web'} theme-${isDesktop ? 'default' : settings.theme}`}>
+    <div className={`app ${isDesktop ? 'desktop' : 'web'}`} style={themeStyle(activeTheme)}>
       <header className="topbar">
         <div className="brand">
           <img className="brand-logo" src={logo} alt="" />
@@ -302,8 +310,9 @@ function MainApp() {
               <label className="field">
                 Theme
                 <select value={settings.theme} onChange={(e) => updateSetting('theme', e.target.value)}>
-                  <option value="default">Default</option>
-                  <option value="halloween">Halloween</option>
+                  {themes.map((t) => (
+                    <option key={t.id} value={t.id}>{t.name}</option>
+                  ))}
                 </select>
               </label>
             )}

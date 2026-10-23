@@ -497,27 +497,3 @@ html, body, * {
 .modal { width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
 .modal-header { display: flex; align-items: center; justify-content: space-between; }
 
-/* ---- Halloween theme (logo palette: deep purple, pumpkin orange, ghostly green) ---- */
-.theme-halloween {
-  --bg: #120b1a;
-  --card: #22142f;
-  --text: #f3e8ff;
-  --muted: #b9a7cc;
-  --line: #3a2a4f;
-  --accent: #ff7518;
-  --accent-ink: #120b1a;
-  --violet: #ff7518;
-}
-.theme-halloween .mode.active { box-shadow: 0 2px 8px rgba(255, 117, 24, 0.45); }
-.theme-halloween .phase { color: #ff7518; }
-.theme-halloween .phase.break { color: #9be564; }
-.theme-halloween .clock { text-shadow: 0 0 18px rgba(255, 117, 24, 0.35); }
-.theme-halloween .card { border: 1px solid #3a2a4f; }
-.theme-halloween .stat { background: #1a1028; }
-.theme-halloween .task-list li.working, .theme-halloween .task-list li.selected { background: rgba(255, 117, 24, 0.14); box-shadow: inset 3px 0 0 #ff7518; }
-.theme-halloween .check.on { background: #ff7518; border-color: #ff7518; }
-.theme-halloween .download-btn.primary { background: #ff7518; border-color: #ff7518; }
-.theme-halloween .breakdown-fill { background-color: #ff7518; }
-
-/* the page background sits on body, above the app container, so it needs its own rule */
-body:has(.theme-halloween) { background: #120b1a; color: #f3e8ff; }
