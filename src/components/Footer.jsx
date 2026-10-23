@@ -18,8 +18,6 @@ const FEATURES = [
   ['No sign-up', 'nothing to create. Your data stays on your device.'],
 ];
 
-import logo from '../assets/logo.png';
-
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -51,7 +49,6 @@ export default function Footer() {
           ))}
         </div>
       </section>
-      <img className="footer-logo" src={logo} alt="Pomodoro logo" />
     </footer>
   );
 }

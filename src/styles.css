@@ -60,11 +60,10 @@ input:focus, button:focus-visible { outline: 2px solid var(--violet); outline-of
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 12px 16px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.topbar .icon-btn { justify-self: end; }
 .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; }
 .brand-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); display: inline-block; }
 .icon-btn {
@@ -455,7 +454,3 @@ html, body, * {
 .download-btn.primary:hover { filter: brightness(0.96); }
 .download-label { font-weight: 700; }
 .download-note { font-size: 13px; opacity: 0.8; }
-
-/* ---- centered header and footer logo ---- */
-.topbar .brand { justify-self: center; }
-.footer-logo { display: block; margin: 8px auto 0; width: 96px; height: 96px; border-radius: 24px; object-fit: cover; }
