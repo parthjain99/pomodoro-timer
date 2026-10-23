@@ -35,8 +35,28 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
     }
   }
 
+  // Marking the current task as done moves "Working on" to the next unfinished task.
   function toggleDone(id) {
+    const target = tasks.find((t) => t.id === id);
+    const finishing = target && !target.done && id === selectedId;
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+    if (finishing) {
+      const idx = tasks.findIndex((t) => t.id === id);
+      const next = tasks.slice(idx + 1).find((t) => !t.done) || tasks.find((t) => !t.done && t.id !== id);
+      setSelectedId(next ? next.id : null);
+    }
+  }
+
+  // Swap a task with its neighbour. dir is -1 (up) or 1 (down).
+  function moveTask(id, dir) {
+    setTasks((prev) => {
+      const i = prev.findIndex((t) => t.id === id);
+      const j = i + dir;
+      if (i < 0 || j < 0 || j >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+      return copy;
+    });
   }
 
   function setTaskProject(id, value) {
@@ -81,7 +101,7 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
       )}
 
       <ul className="task-list scroll-list">
-        {tasks.map((task) => (
+        {tasks.map((task, index) => (
           <li
             key={task.id}
             className={`${task.id === selectedId ? 'selected' : ''} ${task.id === selectedId && running ? 'working' : ''} ${task.done ? 'done' : ''}`}
@@ -113,6 +133,24 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
             <span className="count">
               {task.pomos}/{task.est}
             </span>
+            <button
+              className="small ghost"
+              title="Move up"
+              aria-label="Move up"
+              onClick={() => moveTask(task.id, -1)}
+              disabled={index === 0}
+            >
+              ↑
+            </button>
+            <button
+              className="small ghost"
+              title="Move down"
+              aria-label="Move down"
+              onClick={() => moveTask(task.id, 1)}
+              disabled={index === tasks.length - 1}
+            >
+              ↓
+            </button>
             <button className="small ghost" title="Delete task" onClick={() => removeTask(task.id)}>
               ×
             </button>
