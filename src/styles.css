@@ -468,3 +468,20 @@ html, body, * {
 .cookie-notice button { flex-shrink: 0; }
 .legal-line { text-align: center; font-size: 13px; margin: 4px 0 0; }
 .legal-line a { color: var(--muted); }
+
+/* center the download buttons on every screen size */
+.download-links { justify-content: center; }
+.download-btn { align-items: center; text-align: center; }
+
+/* ---- responsive: mode tabs stay on one line; download buttons show their logo ---- */
+.modes { flex-wrap: nowrap; gap: 8px; }
+.mode { flex: 1 1 0; min-width: 0; max-width: none; white-space: nowrap; padding: 10px 8px; font-size: 15px; }
+.download-btn { flex: 1 1 200px; max-width: 260px; align-items: center; }
+.download-icon { display: inline-flex; width: 30px; height: 30px; margin-bottom: 6px; }
+.download-icon svg { width: 30px; height: 30px; }
+@media (max-width: 520px) {
+  .modes { gap: 6px; }
+  .mode { font-size: 13px; padding: 9px 4px; }
+  .timer-card { padding: 18px 12px 22px; }
+  .card-body { padding-left: 14px; padding-right: 14px; }
+}
