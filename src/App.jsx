@@ -5,7 +5,6 @@ import { playAlarm, primeAudio } from './lib/alarm.js';
 import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
-import Analytics from './components/Analytics.jsx';
 import MiniTimer from './components/MiniTimer.jsx';
 import logo from './assets/logo.png';
 import { GearIcon, PauseIcon, PictureIcon, PlayIcon, ResetIcon, SkipIcon } from './components/Icons.jsx';
@@ -15,6 +14,15 @@ const MODES = [
   { phase: 'short', label: 'Short Break' },
   { phase: 'long', label: 'Long Break' },
 ];
+
+// Panels the user can show or hide on screen.
+const PANEL_OPTIONS = [
+  ['timer', 'Timer'],
+  ['tasks', 'Tasks'],
+  ['projects', 'Projects'],
+  ['video', 'YouTube video'],
+];
+const DEFAULT_PANELS = { timer: true, tasks: true, projects: true, video: true };
 
 const SHORTCUTS = [
   ['Space', 'Start / pause'],
@@ -59,6 +67,7 @@ function MainApp() {
   const [library, setLibrary] = useState(() => withBaselineVideo(Array.isArray(saved.library) ? saved.library : []));
   const [showSettings, setShowSettings] = useState(false);
   const [miniOpen, setMiniOpen] = useState(false);
+  const shown = { ...DEFAULT_PANELS, ...(saved.settings?.panels || {}), ...(settings.panels || {}) };
 
   useEffect(() => {
     saveState({ settings, tasks, selectedId, projects, sessions, library });
@@ -124,7 +133,11 @@ function MainApp() {
     return () => observer.disconnect();
   }, []);
 
+  // The mini timer window only exists in the desktop app.
+  const isDesktop = typeof window !== 'undefined' && Boolean(window.pomodoro);
+
   function toggleMini() {
+    if (!isDesktop) return;
     window.pomodoro?.toggleMini();
     setMiniOpen((open) => !open);
   }
@@ -193,6 +206,10 @@ function MainApp() {
     setSettings((s) => ({ ...s, [key]: value }));
   }
 
+  function updatePanel(key, value) {
+    setSettings((s) => ({ ...s, panels: { ...DEFAULT_PANELS, ...(s.panels || {}), [key]: value } }));
+  }
+
   function deleteProject(id) {
     setProjects((prev) => prev.filter((p) => p.id !== id));
     setTasks((prev) => prev.map((t) => (t.projectId === id ? { ...t, projectId: null } : t)));
@@ -230,6 +247,15 @@ function MainApp() {
               onChange={(v) => updateSetting('longMin', v)} />
             <NumberField label="Sessions before long break" value={settings.cycleLen} min={1} max={10}
               onChange={(v) => updateSetting('cycleLen', v)} />
+            <div className="show-grid">
+              <span className="show-title">Show on screen</span>
+              {PANEL_OPTIONS.map(([key, label]) => (
+                <label className="check-row" key={key}>
+                  <input type="checkbox" checked={shown[key]} onChange={(e) => updatePanel(key, e.target.checked)} />
+                  {label}
+                </label>
+              ))}
+            </div>
             <label className="check-row">
               <input
                 type="checkbox"
@@ -251,6 +277,7 @@ function MainApp() {
 
       <div className="columns">
         <div className="col">
+          {shown.timer && (
           <section className="card timer-card">
             <div className="modes">
               {MODES.map((m) => (
@@ -293,6 +320,7 @@ function MainApp() {
               <button className="round-btn" onClick={() => runCommand('skip')} aria-label="Skip" title="Skip (S)">
                 <SkipIcon />
               </button>
+              {isDesktop && (
               <button
                 className={`round-btn ${miniOpen ? 'active' : ''}`}
                 onClick={() => runCommand('mini')}
@@ -301,8 +329,11 @@ function MainApp() {
               >
                 <PictureIcon />
               </button>
+              )}
             </div>
           </section>
+          )}
+          {shown.video && (
           <VideoPanel
             enabled
             shouldPlay={running}
@@ -313,8 +344,10 @@ function MainApp() {
             onUserPlayback={handleUserPlayback}
             defaultVideoId={settings.defaultVideo}
           />
+          )}
         </div>
         <div className="col">
+          {shown.tasks && (
           <TaskPanel
             tasks={tasks}
             setTasks={setTasks}
@@ -323,13 +356,15 @@ function MainApp() {
             projects={projects}
             running={running}
           />
+          )}
+          {shown.projects && (
           <ProjectPanel
             projects={projects}
             setProjects={setProjects}
             sessions={sessions}
             onDelete={deleteProject}
           />
-          <Analytics sessions={sessions} projects={projects} />
+          )}
         </div>
       </div>
     </div>

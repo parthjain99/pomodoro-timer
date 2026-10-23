@@ -30,8 +30,17 @@ The installers are not code-signed, so each system shows a one-time security war
 - **Timer:** focus and break cycles, with customizable durations, an alarm at the end of each phase, and a mini always-on-top window.
 - **Tasks:** estimated pomodoros, a "working on" picker, and per-task project assignment.
 - **Projects:** group tasks into projects and see the time tracked for each.
-- **Analytics:** focus time and session counts by day, week, month, or year, with a per-project breakdown and CSV export.
+- **Show on screen:** choose which panels to show in Settings: Timer, Tasks, Projects, and YouTube video.
 - **YouTube:** play focus music, with playback that follows the timer. Pressing play in the player starts the timer, and pausing the player pauses it. Saved and recently played videos are kept in a list.
+
+## Web version
+
+The same app runs in a browser. Deploy it to Vercel with the included `vercel.json`:
+
+- Build command: `npm run build`
+- Output directory: `dist`
+
+In the browser, your tasks, projects, settings, and video list are saved in cookies on that device. The desktop app saves them in local storage instead. Clearing cookies resets the web version.
 
 ## Keyboard shortcuts
 
@@ -56,4 +65,4 @@ For development, `npm start` builds the app and opens it.
 ## Notes
 
 - Videos need an internet connection. The timer and tasks work offline.
-- Your data is saved on each computer separately.
+- Your data is saved on each computer or browser separately.
