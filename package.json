@@ -1,0 +1,54 @@
+{
+  "name": "pomodoro-desktop",
+  "version": "0.1.0",
+  "description": "Desktop Pomodoro timer with an optional YouTube player that follows the timer",
+  "main": "main.js",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite build && electron .",
+    "dist": "vite build && electron-builder"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.10"
+  },
+  "productName": "Pomodoro",
+  "author": "Parth Jain",
+  "private": true,
+  "build": {
+    "appId": "com.pomodoro.desktop",
+    "productName": "Pomodoro",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "dist/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
+    }
+  }
+}
