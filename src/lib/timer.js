@@ -8,6 +8,7 @@ export const DEFAULT_SETTINGS = {
   syncVideo: true,
   volume: 50,
   alarm: true,
+  autoStart: false,
   defaultVideo: null,
 };
 
@@ -26,8 +27,9 @@ export function formatClock(sec) {
 export const PHASE_LABEL = { focus: 'Focus', short: 'Short break', long: 'Long break' };
 
 // Timer state machine. While running, time is derived from an end timestamp so the
-// clock stays accurate even when the window is throttled. A phase never auto-starts:
-// the timer stops at each boundary so the user decides when to continue.
+// clock stays accurate even when the window is throttled. By default a phase never
+// auto-starts: the timer stops at each boundary so the user decides when to continue.
+// With settings.autoStart the next phase begins immediately with its full duration.
 export function useTimer(settings, { onFocusComplete, onPhaseEnd } = {}) {
   const [phase, setPhase] = useState('focus');
   const [running, setRunning] = useState(false);
@@ -55,19 +57,25 @@ export function useTimer(settings, { onFocusComplete, onPhaseEnd } = {}) {
   useEffect(() => {
     if (!running || left > 0) return;
     onPhaseEndRef.current?.(phase);
+    let next = 'focus';
     if (phase === 'focus') {
       const nextCompleted = completed + 1;
-      const next = nextCompleted % settings.cycleLen === 0 ? 'long' : 'short';
+      next = nextCompleted % settings.cycleLen === 0 ? 'long' : 'short';
       setCompleted(nextCompleted);
       onFocusCompleteRef.current?.(next);
-      setPhase(next);
-      setRemaining(phaseSeconds(settings, next));
-    } else {
-      setPhase('focus');
-      setRemaining(phaseSeconds(settings, 'focus'));
     }
-    setRunning(false);
-    setEndAt(null);
+    const nextSec = phaseSeconds(settings, next);
+    setPhase(next);
+    setRemaining(nextSec);
+    if (settings.autoStart) {
+      // Stay running into the next phase. One timestamp keeps endAt and now in step.
+      const t = Date.now();
+      setNow(t);
+      setEndAt(t + nextSec * 1000);
+    } else {
+      setRunning(false);
+      setEndAt(null);
+    }
     // settings is intentionally read at the moment of completion
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left, running]);

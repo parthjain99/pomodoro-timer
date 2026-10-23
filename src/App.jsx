@@ -245,6 +245,14 @@ function MainApp() {
               />
               Alarm at the end of each phase
             </label>
+            <label className="check-row">
+              <input
+                type="checkbox"
+                checked={settings.autoStart}
+                onChange={(e) => updateSetting('autoStart', e.target.checked)}
+              />
+              Start the next phase automatically
+            </label>
             <div className="shortcuts">
               {SHORTCUTS.map(([key, label]) => (
                 <div key={key}>
