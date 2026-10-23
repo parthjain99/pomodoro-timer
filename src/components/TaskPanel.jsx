@@ -6,6 +6,8 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
   const [text, setText] = useState('');
   const [est, setEst] = useState(1);
   const [projectId, setProjectId] = useState('');
+  const [dragFrom, setDragFrom] = useState(null);
+  const [dropAt, setDropAt] = useState(null);
 
   function addTask(e) {
     e.preventDefault();
@@ -47,14 +49,13 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
     }
   }
 
-  // Swap a task with its neighbour. dir is -1 (up) or 1 (down).
-  function moveTask(id, dir) {
+  // Move the task at index `from` to position `to` (drag and drop).
+  function moveTo(from, to) {
     setTasks((prev) => {
-      const i = prev.findIndex((t) => t.id === id);
-      const j = i + dir;
-      if (i < 0 || j < 0 || j >= prev.length) return prev;
+      if (from === to || from < 0 || to < 0 || from >= prev.length || to >= prev.length) return prev;
       const copy = [...prev];
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+      const [item] = copy.splice(from, 1);
+      copy.splice(to, 0, item);
       return copy;
     });
   }
@@ -104,7 +105,27 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
         {tasks.map((task, index) => (
           <li
             key={task.id}
-            className={`${task.id === selectedId ? 'selected' : ''} ${task.id === selectedId && running ? 'working' : ''} ${task.done ? 'done' : ''}`}
+            draggable
+            onDragStart={(e) => {
+              setDragFrom(index);
+              e.dataTransfer.effectAllowed = 'move';
+              e.dataTransfer.setData('text/plain', task.id);
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDropAt(index);
+            }}
+            onDrop={(e) => {
+              e.preventDefault();
+              if (dragFrom !== null) moveTo(dragFrom, index);
+              setDragFrom(null);
+              setDropAt(null);
+            }}
+            onDragEnd={() => {
+              setDragFrom(null);
+              setDropAt(null);
+            }}
+            className={`${task.id === selectedId ? 'selected' : ''} ${task.id === selectedId && running ? 'working' : ''} ${task.done ? 'done' : ''} ${dropAt === index && dragFrom !== null && dragFrom !== index ? 'drop-target' : ''}`}
           >
             <button
               className={`check ${task.done ? 'on' : ''}`}
@@ -133,24 +154,6 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
             <span className="count">
               {task.pomos}/{task.est}
             </span>
-            <button
-              className="small ghost"
-              title="Move up"
-              aria-label="Move up"
-              onClick={() => moveTask(task.id, -1)}
-              disabled={index === 0}
-            >
-              ↑
-            </button>
-            <button
-              className="small ghost"
-              title="Move down"
-              aria-label="Move down"
-              onClick={() => moveTask(task.id, 1)}
-              disabled={index === tasks.length - 1}
-            >
-              ↓
-            </button>
             <button className="small ghost" title="Delete task" onClick={() => removeTask(task.id)}>
               ×
             </button>
