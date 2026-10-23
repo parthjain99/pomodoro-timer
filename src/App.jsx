@@ -250,15 +250,17 @@ function MainApp() {
               onChange={(v) => updateSetting('longMin', v)} />
             <NumberField label="Sessions before long break" value={settings.cycleLen} min={1} max={10}
               onChange={(v) => updateSetting('cycleLen', v)} />
-            <div className="show-grid">
-              <span className="show-title">Show on screen</span>
-              {PANEL_OPTIONS.map(([key, label]) => (
-                <label className="check-row" key={key}>
-                  <input type="checkbox" checked={shown[key]} onChange={(e) => updatePanel(key, e.target.checked)} />
-                  {label}
-                </label>
-              ))}
-            </div>
+            {isDesktop && (
+              <div className="show-grid">
+                <span className="show-title">Show on screen</span>
+                {PANEL_OPTIONS.map(([key, label]) => (
+                  <label className="check-row" key={key}>
+                    <input type="checkbox" checked={shown[key]} onChange={(e) => updatePanel(key, e.target.checked)} />
+                    {label}
+                  </label>
+                ))}
+              </div>
+            )}
             <label className="check-row">
               <input
                 type="checkbox"
