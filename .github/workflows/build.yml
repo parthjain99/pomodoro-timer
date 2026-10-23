@@ -18,7 +18,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run dist
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pomodoro-${{ matrix.os }}
           path: release/*.{dmg,exe,AppImage,deb}
