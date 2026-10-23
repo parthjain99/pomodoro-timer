@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="build/icon.png" width="160" alt="Pomodoro logo" />
+</p>
+
 # Pomodoro
 
 A desktop Pomodoro timer with tasks, projects, analytics, and an optional YouTube player that follows the timer.

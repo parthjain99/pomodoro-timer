@@ -419,3 +419,6 @@ html, body, * {
   .col > .task-card { max-height: none; }
   .col > .project-card .scroll-list { max-height: 260px; }
 }
+
+/* ---- logo in the header ---- */
+.brand-logo { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }

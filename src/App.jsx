@@ -7,6 +7,7 @@ import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
 import Analytics from './components/Analytics.jsx';
 import MiniTimer from './components/MiniTimer.jsx';
+import logo from './assets/logo.png';
 import { GearIcon, PauseIcon, PictureIcon, PlayIcon, ResetIcon, SkipIcon } from './components/Icons.jsx';
 
 const MODES = [
@@ -202,7 +203,7 @@ function MainApp() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-dot" />
+          <img className="brand-logo" src={logo} alt="" />
           Pomodoro
         </div>
         <button
