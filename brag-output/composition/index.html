@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pomodoro brag</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/gsap.min.js"></script>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-start="0" data-duration="22" data-width="1920" data-height="1080">
+    <div id="scene-1" data-composition-id="s1" data-composition-src="scenes/s1.html" data-start="0" data-duration="2.5"></div>
+    <div id="scene-2" data-composition-id="s2" data-composition-src="scenes/s2.html" data-start="2.5" data-duration="4"></div>
+    <div id="scene-3" data-composition-id="s3" data-composition-src="scenes/s3.html" data-start="6.5" data-duration="5"></div>
+    <div id="scene-4" data-composition-id="s4" data-composition-src="scenes/s4.html" data-start="11.5" data-duration="5"></div>
+    <div id="scene-5" data-composition-id="s5" data-composition-src="scenes/s5.html" data-start="16.5" data-duration="2"></div>
+    <div id="scene-6" data-composition-id="s6" data-composition-src="scenes/s6.html" data-start="18.5" data-duration="3.5"></div>
+    <audio id="music" data-start="0" data-duration="22" data-volume="0.35" data-fade-out="1.5" data-track-index="3" src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"></audio>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

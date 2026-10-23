@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="s1" data-width="1920" data-height="1080" class="clip" style="background:#111111;color:#ffffff;display:flex;align-items:center;justify-content:center;">
+    <div id="hook" style="font-size:96px;font-weight:800;letter-spacing:-0.02em;opacity:1;">The player follows the timer.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#hook", { y: 20 }, { y: 0, duration: 0.4 }, 0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s1"] = tl;
+  </script>
+</body>
+</html>

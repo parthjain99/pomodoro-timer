@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="s3" data-width="1920" data-height="1080" class="clip">
+    <div class="card" style="left:560px;top:150px;width:800px;height:760px;padding:50px;box-sizing:border-box;">
+      <div style="height:90px;border:2px dashed #bdbdbd;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:30px;margin-top:70px;opacity:0;" id="add">+ Add a new task</div>
+      <div class="row working" id="r1"><span class="name">Write chapter 2</span><span class="badge">Working</span><span class="count">0/1</span></div>
+      <div class="row" id="r2"><span class="name">Email advisor</span><span class="count">0/1</span></div>
+      <div class="row" id="r3"><span class="name">Thesis</span><span class="chip">Project</span><span class="count">0/2</span></div>
+    </div>
+    <div class="cap" id="s3cap" style="top:40px;">Tasks are highlighted while you work.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to("#add", { opacity: 1, duration: 0.3 }, 0);
+    tl.to("#r1", { opacity: 1, duration: 0.3 }, 0.02);
+    tl.to("#r2", { opacity: 1, duration: 0.3 }, 1.02);
+    tl.to("#r3", { opacity: 1, duration: 0.3 }, 2.02);
+    tl.to("#s3cap", { opacity: 1, duration: 0.3 }, 0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s3"] = tl;
+  </script>
+</body>
+</html>

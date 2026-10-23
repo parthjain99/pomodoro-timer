@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="s6" data-width="1920" data-height="1080" class="clip" style="background:#111111;color:#ffffff;">
+    <img id="logo" src="../assets/logo.png" alt="" style="position:absolute;left:560px;top:300px;width:260px;height:260px;border-radius:40px;opacity:0;" />
+    <div id="word" style="position:absolute;left:860px;top:330px;font-size:130px;font-weight:800;opacity:0;">Pomodoro</div>
+    <div id="line" style="position:absolute;left:860px;top:490px;font-size:40px;color:#d6d6dc;opacity:0;">A desktop Pomodoro timer. The player follows the timer.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to("#logo", { opacity: 1, duration: 0.5 }, 0);
+    tl.to("#word", { opacity: 1, duration: 0.5 }, 0.2);
+    tl.to("#line", { opacity: 1, duration: 0.5 }, 0.5);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s6"] = tl;
+  </script>
+</body>
+</html>
