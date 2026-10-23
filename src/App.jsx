@@ -186,6 +186,13 @@ function MainApp() {
   }, []);
 
   useEffect(() => {
+    if (!showSettings) return undefined;
+    const onEsc = (e) => { if (e.key === 'Escape') setShowSettings(false); };
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [showSettings]);
+
+  useEffect(() => {
     function onKey(e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const target = e.target;
@@ -242,9 +249,11 @@ function MainApp() {
       </header>
 
       {showSettings && (
-        <section className="card">
-          <div className="card-header static">
+        <div className="modal-backdrop" onClick={() => setShowSettings(false)}>
+          <section className="card modal" role="dialog" aria-modal="true" aria-label="Settings" onClick={(e) => e.stopPropagation()}>
+          <div className="card-header static modal-header">
             <span className="card-title">Settings</span>
+            <button className="icon-btn" onClick={() => setShowSettings(false)} aria-label="Close settings" title="Close">×</button>
           </div>
           <div className="card-body settings-grid">
             <NumberField label="Focus (min)" value={settings.focusMin} min={1} max={120}
@@ -279,7 +288,8 @@ function MainApp() {
               ))}
             </div>
           </div>
-        </section>
+          </section>
+        </div>
       )}
 
       <div className="columns">
