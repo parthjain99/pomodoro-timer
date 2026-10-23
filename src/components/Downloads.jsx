@@ -1,8 +1,8 @@
-// Installers hosted on Vercel Blob.
+// Installers attached to the latest GitHub release (published automatically from a version tag).
 const DOWNLOADS = [
-  { os: 'mac', label: 'macOS', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro-0.1.0-arm64-A2SG7wkZtZR3A7XuJyFQ3KjhFSs4JM.dmg', note: 'Apple Silicon' },
-  { os: 'windows', label: 'Windows', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro%20Setup%200.1.0-ioxlDZTFge6qChwlnPSW30wFjVtuQN.exe', note: '64-bit' },
-  { os: 'linux', label: 'Linux', url: 'https://osgklwowjtn255t2.public.blob.vercel-storage.com/Pomodoro-0.1.0-Ulrik1YhlrqbcDt4MydTEDM7nTROVA.AppImage', note: '64-bit AppImage' },
+  { os: 'mac', label: 'macOS', url: 'https://github.com/parthjain99/pomodoro-timer/releases/latest/download/Pomodoro-mac-arm64.dmg', note: 'Apple Silicon' },
+  { os: 'windows', label: 'Windows', url: 'https://github.com/parthjain99/pomodoro-timer/releases/latest/download/Pomodoro-windows-x64.exe', note: '64-bit' },
+  { os: 'linux', label: 'Linux', url: 'https://github.com/parthjain99/pomodoro-timer/releases/latest/download/Pomodoro-linux-x64.AppImage', note: '64-bit AppImage' },
 ];
 
 // Logos: Apple and Linux from Simple Icons (CC0). The Windows mark is a simple four-pane drawing.

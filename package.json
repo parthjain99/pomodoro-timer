@@ -36,19 +36,22 @@
       "category": "public.app-category.productivity",
       "target": [
         "dmg"
-      ]
+      ],
+      "artifactName": "Pomodoro-mac-arm64.${ext}"
     },
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "artifactName": "Pomodoro-windows-x64.${ext}"
     },
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+        "AppImage"
       ],
-      "category": "Utility"
-    }
+      "category": "Utility",
+      "artifactName": "Pomodoro-linux-x64.${ext}"
+    },
+    "artifactName": "Pomodoro-${os}-${arch}.${ext}"
   }
 }

@@ -27,22 +27,13 @@ A free Pomodoro timer with YouTube music and task management in one place.
 
 ## Download
 
-Get the installer for your system from the [v0.1.0 release](https://github.com/parthjain99/pomodoro-timer/releases/tag/v0.1.0).
+Get the latest installer from the [latest release](https://github.com/parthjain99/pomodoro-timer/releases/latest):
 
-| System | File | How to install |
-| --- | --- | --- |
-| macOS (Apple Silicon, M1 or later) | `Pomodoro-0.1.0-arm64.dmg` | Open the DMG and drag **Pomodoro** into Applications. The first time, right-click the app and choose **Open**. |
-| Windows (64-bit) | `Pomodoro Setup 0.1.0.exe` | Run the installer. If SmartScreen warns, click **More info → Run anyway**. |
-| Linux (AppImage) | `Pomodoro-0.1.0.AppImage` | `chmod +x Pomodoro-0.1.0.AppImage`, then double-click it or run `./Pomodoro-0.1.0.AppImage`. |
+- **macOS (Apple Silicon):** `Pomodoro-mac-arm64.dmg`. Open it and drag **Pomodoro** into Applications. The first time, right-click the app and choose **Open**.
+- **Windows (64-bit):** `Pomodoro-windows-x64.exe`. If SmartScreen warns, click **More info → Run anyway**.
+- **Linux (64-bit AppImage):** `Pomodoro-linux-x64.AppImage`. Run `chmod +x` on it, then open it.
 
 The installers are not code-signed, so each system shows a one-time security warning.
-
-## Features
-
-- **Timer:** focus and break cycles, with customizable durations, an alarm at the end of each phase, and a mini always-on-top window.
-- **Tasks:** estimated pomodoros, a "working on" picker, and per-task project assignment.
-- **Projects:** group tasks into projects and see the time tracked for each.
-- **YouTube:** play focus music, with playback that follows the timer. Pressing play in the player starts the timer, and pausing the player pauses it. Saved and recently played videos are kept in a list.
 
 ## Web version
 
@@ -69,9 +60,18 @@ npm install
 npm run dist
 ```
 
-Output goes to `release/`. Build each platform's installer on that platform, or use the GitHub Actions workflow in `.github/workflows/build.yml`. It builds all of them on their own systems. Run it from the Actions tab, or push a tag such as `v0.1.0`.
+Output goes to `release/`.
 
-For development, `npm start` builds the app and opens it.
+## Publishing a release
+
+Push a version tag and GitHub builds all three installers and publishes them:
+
+```
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+The workflow is in `.github/workflows/release.yml`.
 
 ## Notes
 
