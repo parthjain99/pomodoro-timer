@@ -9,7 +9,6 @@ export const DEFAULT_SETTINGS = {
   volume: 50,
   alarm: true,
   tick: false,
-  tickVolume: 30,
   defaultVideo: null,
 };
 

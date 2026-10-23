@@ -12,19 +12,17 @@ export function primeAudio() {
 }
 
 // One short, quiet click (about 20 ms). volume is 0-100.
-export function playTick(volume) {
+export function playTick() {
   try {
     primeAudio();
     if (!ctx) return;
-    const level = Math.min(100, Math.max(0, Number(volume) || 0)) / 100;
-    if (level <= 0) return;
     const t0 = ctx.currentTime;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "sine";
     osc.frequency.value = 1200;
     gain.gain.setValueAtTime(0.0001, t0);
-    gain.gain.exponentialRampToValueAtTime(0.15 * level, t0 + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.15, t0 + 0.002);
     gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.02);
     osc.connect(gain).connect(ctx.destination);
     osc.start(t0);

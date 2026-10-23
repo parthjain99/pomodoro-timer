@@ -95,8 +95,6 @@ function MainApp() {
 
   // Ticking during focus, only in the last 10 seconds. Reads the volume and the remaining
   // time through refs so moving the slider or the clock does not restart the interval.
-  const tickVolumeRef = useRef(settings.tickVolume);
-  tickVolumeRef.current = settings.tickVolume;
   const leftRef = useRef(left);
   leftRef.current = left;
   useEffect(() => {
@@ -107,7 +105,7 @@ function MainApp() {
       const remaining = leftRef.current;
       if (remaining <= 10 && remaining > 0 && remaining !== lastTicked) {
         lastTicked = remaining;
-        playTick(tickVolumeRef.current);
+        playTick();
       }
     }, 100);
     return () => clearInterval(id);
@@ -272,16 +270,6 @@ function MainApp() {
                 onChange={(e) => updateSetting('tick', e.target.checked)}
               />
               Tick during the last 10 seconds of focus
-            </label>
-            <label className="field">
-              Tick volume ({settings.tickVolume})
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={settings.tickVolume}
-                onChange={(e) => updateSetting('tickVolume', Number(e.target.value))}
-              />
             </label>
             <div className="shortcuts">
               {SHORTCUTS.map(([key, label]) => (
