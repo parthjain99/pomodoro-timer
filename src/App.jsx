@@ -5,6 +5,7 @@ import { playAlarm, primeAudio } from './lib/alarm.js';
 import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
+import Analytics from './components/Analytics.jsx';
 import MiniTimer from './components/MiniTimer.jsx';
 import Footer from './components/Footer.jsx';
 import CookieNotice from './components/CookieNotice.jsx';
@@ -367,6 +368,7 @@ function MainApp() {
             onDelete={deleteProject}
           />
           )}
+          {isDesktop && <Analytics sessions={sessions} projects={projects} />}
         </div>
       </div>
 
