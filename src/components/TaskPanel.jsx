@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { sortDoneToBottom } from '../lib/tasks.js';
 import { CheckIcon, PlusIcon } from './Icons.jsx';
 
-export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, projects, running }) {
+export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, projects, running, checkToBottom }) {
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
   const [est, setEst] = useState(1);
@@ -41,7 +42,11 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
   function toggleDone(id) {
     const target = tasks.find((t) => t.id === id);
     const finishing = target && !target.done && id === selectedId;
-    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+    const marking = target && !target.done;
+    setTasks((prev) => {
+      const next = prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+      return checkToBottom && marking ? sortDoneToBottom(next) : next;
+    });
     if (finishing) {
       const idx = tasks.findIndex((t) => t.id === id);
       const next = tasks.slice(idx + 1).find((t) => !t.done) || tasks.find((t) => !t.done && t.id !== id);

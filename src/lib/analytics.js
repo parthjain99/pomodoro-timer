@@ -14,7 +14,7 @@ function startOfDay(d) {
 }
 
 // Buckets for a range: each has a label and [start, end) timestamps.
-export function bucketsFor(range, now = new Date()) {
+export function bucketsFor(range, now = new Date(), weekStart = 'monday') {
   if (range === 'day') {
     const s = startOfDay(now);
     const e = new Date(s);
@@ -22,10 +22,14 @@ export function bucketsFor(range, now = new Date()) {
     return [{ label: 'Today', start: s.getTime(), end: e.getTime() }];
   }
   if (range === 'week') {
+    // Calendar week, starting on Monday or Sunday.
     const today = startOfDay(now);
+    const offset = weekStart === 'sunday' ? today.getDay() : (today.getDay() + 6) % 7;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - offset);
     return Array.from({ length: 7 }, (_, i) => {
-      const s = new Date(today);
-      s.setDate(today.getDate() - (6 - i));
+      const s = new Date(monday);
+      s.setDate(monday.getDate() + i);
       const e = new Date(s);
       e.setDate(s.getDate() + 1);
       return { label: s.toLocaleDateString(undefined, { weekday: 'short' }), start: s.getTime(), end: e.getTime() };
