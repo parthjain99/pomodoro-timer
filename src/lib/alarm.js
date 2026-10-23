@@ -20,13 +20,13 @@ export function playTick() {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "sine";
-    osc.frequency.value = 1200;
+    osc.frequency.value = 1800;
     gain.gain.setValueAtTime(0.0001, t0);
-    gain.gain.exponentialRampToValueAtTime(0.15, t0 + 0.002);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.5, t0 + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.07);
     osc.connect(gain).connect(ctx.destination);
     osc.start(t0);
-    osc.stop(t0 + 0.025);
+    osc.stop(t0 + 0.08);
   } catch {
     // audio unavailable
   }
