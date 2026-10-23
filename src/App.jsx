@@ -7,6 +7,7 @@ import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
 import MiniTimer from './components/MiniTimer.jsx';
 import Footer from './components/Footer.jsx';
+import CookieNotice from './components/CookieNotice.jsx';
 import logo from './assets/logo.png';
 import { GearIcon, PauseIcon, PictureIcon, PlayIcon, ResetIcon, SkipIcon } from './components/Icons.jsx';
 
@@ -370,6 +371,7 @@ function MainApp() {
       </div>
 
       <Footer />
+      {!isDesktop && <CookieNotice />}
     </div>
   );
 }

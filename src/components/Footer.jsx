@@ -72,6 +72,7 @@ export default function Footer() {
           ))}
         </div>
       </section>
+      <p className="legal-line"><a href="privacy.html">Privacy policy</a></p>
     </footer>
   );
 }
