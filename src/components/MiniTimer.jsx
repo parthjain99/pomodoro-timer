@@ -19,6 +19,9 @@ export default function MiniTimer() {
 
   return (
     <div className="mini">
+      <button className="mini-close" onClick={() => window.pomodoro?.toggleMini()} aria-label="Close mini timer" title="Close">
+        ×
+      </button>
       <div className="mini-phase">{timer.phase}</div>
       <div className="mini-clock">{timer.clock}</div>
       <div className="mini-controls">
