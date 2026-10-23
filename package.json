@@ -53,5 +53,8 @@
       "artifactName": "Pomodoro-linux-x64.${ext}"
     },
     "artifactName": "Pomodoro-${os}-${arch}.${ext}"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.6.1"
   }
 }
