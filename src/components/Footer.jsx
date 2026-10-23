@@ -1,3 +1,5 @@
+import Downloads from './Downloads.jsx';
+
 // Links for the Connect with me section. A link with an empty url is hidden.
 const CONNECT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/parthjain99' },
@@ -18,6 +20,7 @@ const FEATURES = [
 export default function Footer() {
   return (
     <footer className="site-footer">
+      <Downloads />
       <section className="card features-card">
         <div className="card-header static">
           <span className="card-title">Features</span>
