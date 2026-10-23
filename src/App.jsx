@@ -18,14 +18,6 @@ const MODES = [
   { phase: 'long', label: 'Long Break' },
 ];
 
-// Panels the user can show or hide on screen.
-const PANEL_OPTIONS = [
-  ['timer', 'Timer'],
-  ['tasks', 'Tasks'],
-  ['projects', 'Projects'],
-  ['video', 'YouTube video'],
-];
-const DEFAULT_PANELS = { timer: true, tasks: true, projects: true, video: true };
 
 const SHORTCUTS = [
   ['Space', 'Start / pause'],
@@ -70,7 +62,6 @@ function MainApp() {
   const [library, setLibrary] = useState(() => withBaselineVideo(Array.isArray(saved.library) ? saved.library : []));
   const [showSettings, setShowSettings] = useState(false);
   const [miniOpen, setMiniOpen] = useState(false);
-  const shown = { ...DEFAULT_PANELS, ...(saved.settings?.panels || {}), ...(settings.panels || {}) };
 
   useEffect(() => {
     saveState({ settings, tasks, selectedId, projects, sessions, library });
@@ -209,10 +200,6 @@ function MainApp() {
     setSettings((s) => ({ ...s, [key]: value }));
   }
 
-  function updatePanel(key, value) {
-    setSettings((s) => ({ ...s, panels: { ...DEFAULT_PANELS, ...(s.panels || {}), [key]: value } }));
-  }
-
   function deleteProject(id) {
     setProjects((prev) => prev.filter((p) => p.id !== id));
     setTasks((prev) => prev.map((t) => (t.projectId === id ? { ...t, projectId: null } : t)));
@@ -250,17 +237,6 @@ function MainApp() {
               onChange={(v) => updateSetting('longMin', v)} />
             <NumberField label="Sessions before long break" value={settings.cycleLen} min={1} max={10}
               onChange={(v) => updateSetting('cycleLen', v)} />
-            {isDesktop && (
-              <div className="show-grid">
-                <span className="show-title">Show on screen</span>
-                {PANEL_OPTIONS.map(([key, label]) => (
-                  <label className="check-row" key={key}>
-                    <input type="checkbox" checked={shown[key]} onChange={(e) => updatePanel(key, e.target.checked)} />
-                    {label}
-                  </label>
-                ))}
-              </div>
-            )}
             <label className="check-row">
               <input
                 type="checkbox"
@@ -282,94 +258,86 @@ function MainApp() {
 
       <div className="columns">
         <div className="col">
-          {shown.timer && (
-          <section className="card timer-card">
-            <div className="modes">
-              {MODES.map((m) => (
-                <button
-                  key={m.phase}
-                  className={`mode ${phase === m.phase ? 'active' : ''}`}
-                  onClick={() => timer.goTo(m.phase)}
-                >
-                  {m.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="clock">{clock}</div>
-
-            <div className="focus-picker">
-              <span>Working on</span>
-              <select value={selectedId || ''} onChange={(e) => setSelectedId(e.target.value || null)}>
-                <option value="">No task</option>
-                {tasks
-                  .filter((t) => !t.done || t.id === selectedId)
-                  .map((t) => (
-                    <option key={t.id} value={t.id}>{t.text}</option>
-                  ))}
-              </select>
-            </div>
-
-            <div className="round-controls">
+        <section className="card timer-card">
+          <div className="modes">
+            {MODES.map((m) => (
               <button
-                className="round-btn"
-                onClick={() => runCommand('toggle')}
-                aria-label={running ? 'Pause' : 'Start'}
-                title={running ? 'Pause (Space)' : 'Start (Space)'}
+                key={m.phase}
+                className={`mode ${phase === m.phase ? 'active' : ''}`}
+                onClick={() => timer.goTo(m.phase)}
               >
-                {running ? <PauseIcon /> : <PlayIcon />}
+                {m.label}
               </button>
-              <button className="round-btn" onClick={() => runCommand('reset')} aria-label="Reset" title="Reset (R)">
-                <ResetIcon />
-              </button>
-              <button className="round-btn" onClick={() => runCommand('skip')} aria-label="Skip" title="Skip (S)">
-                <SkipIcon />
-              </button>
-              {isDesktop && (
-              <button
-                className={`round-btn ${miniOpen ? 'active' : ''}`}
-                onClick={() => runCommand('mini')}
-                aria-label="Mini timer"
-                title="Mini timer (P)"
-              >
-                <PictureIcon />
-              </button>
-              )}
-            </div>
-          </section>
-          )}
-          {shown.video && (
-          <VideoPanel
-            enabled
-            shouldPlay={running}
-            volume={settings.volume}
-            onVolume={(v) => updateSetting('volume', v)}
-            library={library}
-            setLibrary={setLibrary}
-            onUserPlayback={handleUserPlayback}
-            defaultVideoId={settings.defaultVideo}
-          />
-          )}
+            ))}
+          </div>
+
+          <div className="clock">{clock}</div>
+
+          <div className="focus-picker">
+            <span>Working on</span>
+            <select value={selectedId || ''} onChange={(e) => setSelectedId(e.target.value || null)}>
+              <option value="">No task</option>
+              {tasks
+                .filter((t) => !t.done || t.id === selectedId)
+                .map((t) => (
+                  <option key={t.id} value={t.id}>{t.text}</option>
+                ))}
+            </select>
+          </div>
+
+          <div className="round-controls">
+            <button
+              className="round-btn"
+              onClick={() => runCommand('toggle')}
+              aria-label={running ? 'Pause' : 'Start'}
+              title={running ? 'Pause (Space)' : 'Start (Space)'}
+            >
+              {running ? <PauseIcon /> : <PlayIcon />}
+            </button>
+            <button className="round-btn" onClick={() => runCommand('reset')} aria-label="Reset" title="Reset (R)">
+              <ResetIcon />
+            </button>
+            <button className="round-btn" onClick={() => runCommand('skip')} aria-label="Skip" title="Skip (S)">
+              <SkipIcon />
+            </button>
+            {isDesktop && (
+            <button
+              className={`round-btn ${miniOpen ? 'active' : ''}`}
+              onClick={() => runCommand('mini')}
+              aria-label="Mini timer"
+              title="Mini timer (P)"
+            >
+              <PictureIcon />
+            </button>
+            )}
+          </div>
+        </section>
+        <VideoPanel
+          enabled
+          shouldPlay={running}
+          volume={settings.volume}
+          onVolume={(v) => updateSetting('volume', v)}
+          library={library}
+          setLibrary={setLibrary}
+          onUserPlayback={handleUserPlayback}
+          defaultVideoId={settings.defaultVideo}
+        />
         </div>
         <div className="col">
-          {shown.tasks && (
-          <TaskPanel
-            tasks={tasks}
-            setTasks={setTasks}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
-            projects={projects}
-            running={running}
-          />
-          )}
-          {shown.projects && (
-          <ProjectPanel
-            projects={projects}
-            setProjects={setProjects}
-            sessions={sessions}
-            onDelete={deleteProject}
-          />
-          )}
+        <TaskPanel
+          tasks={tasks}
+          setTasks={setTasks}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+          projects={projects}
+          running={running}
+        />
+        <ProjectPanel
+          projects={projects}
+          setProjects={setProjects}
+          sessions={sessions}
+          onDelete={deleteProject}
+        />
           {isDesktop && <Analytics sessions={sessions} projects={projects} />}
         </div>
       </div>

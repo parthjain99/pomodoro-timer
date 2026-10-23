@@ -21,7 +21,7 @@ A free Pomodoro timer with YouTube music and task management in one place.
 - **Projects:** group tasks into projects and see the time tracked for each.
 - **YouTube music:** paste a link and play focus music. Pressing play starts the timer, and pausing pauses it.
 - **Saved and recent videos:** star videos to keep them, and reopen recently played ones.
-- **Settings:** change durations, turn the alarm on or off, and choose which panels show on screen.
+- **Settings:** change durations, turn the alarm on or off,.
 - **Keyboard shortcuts:** start, pause, reset, skip, and open the mini timer without the mouse.
 - **No sign-up:** nothing to create. Your data stays on your device.
 
@@ -43,7 +43,6 @@ The installers are not code-signed, so each system shows a one-time security war
 - **Timer:** focus and break cycles, with customizable durations, an alarm at the end of each phase, and a mini always-on-top window.
 - **Tasks:** estimated pomodoros, a "working on" picker, and per-task project assignment.
 - **Projects:** group tasks into projects and see the time tracked for each.
-- **Show on screen:** choose which panels to show in Settings: Timer, Tasks, Projects, and YouTube video.
 - **YouTube:** play focus music, with playback that follows the timer. Pressing play in the player starts the timer, and pausing the player pauses it. Saved and recently played videos are kept in a list.
 
 ## Web version
