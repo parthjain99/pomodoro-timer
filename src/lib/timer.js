@@ -10,6 +10,12 @@ export const DEFAULT_SETTINGS = {
   alarm: true,
   tick: false,
   defaultVideo: null,
+  autoStartBreaks: false,
+  autoStartPomodoros: false,
+  alarmRepeat: 1,
+  autoCheckTasks: false,
+  checkToBottom: false,
+  weekStart: 'monday',
 };
 
 export function phaseSeconds(settings, phase) {
@@ -56,19 +62,23 @@ export function useTimer(settings, { onFocusComplete, onPhaseEnd } = {}) {
   useEffect(() => {
     if (!running || left > 0) return;
     onPhaseEndRef.current?.(phase);
+    let nextPhase;
+    let autoStart;
     if (phase === 'focus') {
       const nextCompleted = completed + 1;
-      const next = nextCompleted % settings.cycleLen === 0 ? 'long' : 'short';
+      nextPhase = nextCompleted % settings.cycleLen === 0 ? 'long' : 'short';
+      autoStart = settings.autoStartBreaks;
       setCompleted(nextCompleted);
-      onFocusCompleteRef.current?.(next);
-      setPhase(next);
-      setRemaining(phaseSeconds(settings, next));
+      onFocusCompleteRef.current?.(nextPhase);
     } else {
-      setPhase('focus');
-      setRemaining(phaseSeconds(settings, 'focus'));
+      nextPhase = 'focus';
+      autoStart = settings.autoStartPomodoros;
     }
-    setRunning(false);
-    setEndAt(null);
+    // Auto-start continues straight into the next phase; otherwise it waits for the user.
+    setPhase(nextPhase);
+    setRemaining(phaseSeconds(settings, nextPhase));
+    setRunning(Boolean(autoStart));
+    setEndAt(autoStart ? Date.now() + phaseSeconds(settings, nextPhase) * 1000 : null);
     // settings is intentionally read at the moment of completion
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left, running]);

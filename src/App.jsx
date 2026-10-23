@@ -6,6 +6,7 @@ import TaskPanel from './components/TaskPanel.jsx';
 import VideoPanel from './components/VideoPanel.jsx';
 import ProjectPanel from './components/ProjectPanel.jsx';
 import Analytics from './components/Analytics.jsx';
+import { sortDoneToBottom } from './lib/tasks.js';
 import MiniTimer from './components/MiniTimer.jsx';
 import Footer from './components/Footer.jsx';
 import CookieNotice from './components/CookieNotice.jsx';
@@ -71,7 +72,14 @@ function MainApp() {
   const timer = useTimer(settings, {
     onFocusComplete: (next) => {
       const task = tasks.find((t) => t.id === selectedId) || null;
-      setTasks((prev) => prev.map((t) => (t.id === selectedId ? { ...t, pomos: t.pomos + 1 } : t)));
+      setTasks((prev) => {
+        const next = prev.map((t) => {
+          if (t.id !== selectedId) return t;
+          const pomos = t.pomos + 1;
+          return { ...t, pomos, done: t.done || (settings.autoCheckTasks && pomos >= t.est) };
+        });
+        return settings.checkToBottom ? sortDoneToBottom(next) : next;
+      });
       setSessions((prev) => [
         ...prev,
         {
@@ -85,7 +93,7 @@ function MainApp() {
       notify('Focus done', next === 'long' ? 'Time for a long break.' : 'Time for a short break.');
     },
     onPhaseEnd: () => {
-      if (settings.alarm) playAlarm();
+      if (settings.alarm) playAlarm(settings.alarmRepeat);
     },
   });
 
@@ -273,6 +281,33 @@ function MainApp() {
               Alarm at the end of each phase
             </label>
             <label className="check-row">
+              <input type="checkbox" checked={settings.autoStartBreaks} onChange={(e) => updateSetting('autoStartBreaks', e.target.checked)} />
+              Auto start breaks
+            </label>
+            <label className="check-row">
+              <input type="checkbox" checked={settings.autoStartPomodoros} onChange={(e) => updateSetting('autoStartPomodoros', e.target.checked)} />
+              Auto start pomodoros
+            </label>
+            <NumberField label="Alarm repeat (1 to 5)" value={settings.alarmRepeat} min={1} max={5}
+              onChange={(v) => updateSetting('alarmRepeat', v)} />
+            <label className="check-row">
+              <input type="checkbox" checked={settings.autoCheckTasks} onChange={(e) => updateSetting('autoCheckTasks', e.target.checked)} />
+              Auto check tasks when pomodoros reach the estimate
+            </label>
+            <label className="check-row">
+              <input type="checkbox" checked={settings.checkToBottom} onChange={(e) => updateSetting('checkToBottom', e.target.checked)} />
+              Move finished tasks to the bottom
+            </label>
+            {isDesktop && (
+              <label className="field">
+                Analytics week starts on
+                <select value={settings.weekStart} onChange={(e) => updateSetting('weekStart', e.target.value)}>
+                  <option value="monday">Monday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+              </label>
+            )}
+            <label className="check-row">
               <input
                 type="checkbox"
                 checked={settings.tick}
@@ -367,6 +402,7 @@ function MainApp() {
           setSelectedId={setSelectedId}
           projects={projects}
           running={running}
+          checkToBottom={settings.checkToBottom}
         />
         <ProjectPanel
           projects={projects}
@@ -374,7 +410,7 @@ function MainApp() {
           sessions={sessions}
           onDelete={deleteProject}
         />
-          {isDesktop && <Analytics sessions={sessions} projects={projects} />}
+          {isDesktop && <Analytics sessions={sessions} projects={projects} weekStart={settings.weekStart} />}
         </div>
       </div>
 

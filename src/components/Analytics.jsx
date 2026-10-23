@@ -10,10 +10,10 @@ import {
 } from '../lib/analytics.js';
 import { ChartIcon } from './Icons.jsx';
 
-export default function Analytics({ sessions, projects }) {
+export default function Analytics({ sessions, projects, weekStart = 'monday' }) {
   const [range, setRange] = useState('week');
   const now = useMemo(() => new Date(), [range, sessions.length]);
-  const buckets = useMemo(() => bucketsFor(range, now), [range, now]);
+  const buckets = useMemo(() => bucketsFor(range, now, weekStart), [range, now, weekStart]);
   const start = buckets[0].start;
   const end = buckets[buckets.length - 1].end;
 

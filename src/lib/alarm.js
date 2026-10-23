@@ -33,12 +33,16 @@ export function playTick() {
 }
 
 // Three short beeps.
-export function playAlarm() {
+export function playAlarm(repeat = 1) {
   try {
     primeAudio();
     if (!ctx) return;
     const t0 = ctx.currentTime;
-    [0, 0.3, 0.6].forEach((offset) => {
+    // Repeat the three-beep pattern 1 to 5 times, one second apart.
+    const times = Math.min(5, Math.max(1, Number(repeat) || 1));
+    const offsets = [];
+    for (let r = 0; r < times; r++) offsets.push(r, r + 0.3, r + 0.6);
+    offsets.forEach((offset) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
