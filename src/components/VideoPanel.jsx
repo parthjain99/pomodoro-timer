@@ -261,3 +261,4 @@ function trimLibrary(items) {
 function sortByRecent(items) {
   return [...items].sort((a, b) => b.lastPlayed - a.lastPlayed);
 }
+

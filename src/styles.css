@@ -405,7 +405,12 @@ html, body, * {
 /* ---- task and project lists scroll inside their card ---- */
 .scroll-list { max-height: 260px; overflow-y: auto; }
 
+/* timer and task list share one row; both cards stretch to the same height */
+.row-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.row-top > .card { min-width: 0; }
+
 /* top row: timer and tasks share a row; tasks stop at the timer card height and scroll after that */
+.row-top { display: none; }
 .col > .task-card { max-height: var(--timer-h, 360px); }
 .col > .project-card .scroll-list { max-height: 131px; flex: none; }
 .col > .card { display: flex; flex-direction: column; min-height: 0; }
