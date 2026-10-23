@@ -487,3 +487,7 @@ html, body, * {
   .timer-card { padding: 18px 12px 22px; }
   .card-body { padding-left: 14px; padding-right: 14px; }
 }
+
+/* drag and drop task reordering */
+.task-list li[draggable] { cursor: grab; }
+.task-list li.drop-target { box-shadow: inset 0 3px 0 var(--violet); }
