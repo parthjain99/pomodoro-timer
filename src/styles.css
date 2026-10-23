@@ -440,3 +440,8 @@ html, body, * {
 .site-footer { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
 .features-tagline { margin: 0 0 10px; color: var(--muted); }
 .features-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+
+/* ---- connect with me ---- */
+.connect-links { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+.connect-links a { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border: 1px solid var(--line); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600; }
+.connect-links a:hover { background: var(--bg); }

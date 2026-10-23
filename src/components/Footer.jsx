@@ -1,3 +1,9 @@
+// Links for the Connect with me section. A link with an empty url is hidden.
+const CONNECT_LINKS = [
+  { label: 'GitHub', url: 'https://github.com/parthjain99' },
+  { label: 'LinkedIn', url: '' },
+];
+
 const FEATURES = [
   ['Timer', 'focus and break cycles with adjustable lengths, a clock that counts down, and a mini always-on-top window.'],
   ['Task list', 'add tasks with an estimated number of pomodoros, mark them done, and pick the one you are working on.'],
@@ -25,6 +31,18 @@ export default function Footer() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+      <section className="card connect-card">
+        <div className="card-header static">
+          <span className="card-title">Connect with me</span>
+        </div>
+        <div className="card-body connect-links">
+          {CONNECT_LINKS.filter((l) => l.url).map((l) => (
+            <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">
+              {l.label}
+            </a>
+          ))}
         </div>
       </section>
     </footer>
