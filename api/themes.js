@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return;
   }
   try {
-    const url = `https://edge-config.vercel.com/${id}/item/themes?token=${encodeURIComponent(token)}`;
+    const url = `https://global-config.vercel.com/${id}/item/themes?token=${encodeURIComponent(token)}`;
     const upstream = await fetch(url);
     if (!upstream.ok) {
       res.status(502).json({ error: 'Could not load themes' });
