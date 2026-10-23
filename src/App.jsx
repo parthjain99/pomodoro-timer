@@ -98,7 +98,7 @@ function MainApp() {
   const leftRef = useRef(left);
   leftRef.current = left;
   useEffect(() => {
-    if (!running || phase !== focus || !settings.tick) return undefined;
+    if (!running || phase !== 'focus' || !settings.tick) return undefined;
     let lastTicked = null;
     // Each remaining second from 10 down to 1 gets exactly one tick.
     const id = setInterval(() => {
