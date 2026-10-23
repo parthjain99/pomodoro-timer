@@ -156,9 +156,9 @@ function MainApp() {
 
   // The mini timer window only exists in the desktop app.
   const isDesktop = typeof window !== 'undefined' && Boolean(window.pomodoro);
-  // Themes come from the website only; the desktop app always uses the default look.
-  const themes = useThemes(!isDesktop);
-  const activeTheme = isDesktop ? themes[0] : themes.find((t) => t.id === settings.theme) || themes[0];
+  // Themes come from the website's theme list (desktop reads the same list).
+  const themes = useThemes(true);
+  const activeTheme = themes.find((t) => t.id === settings.theme) || themes[0];
   useEffect(() => {
     document.body.style.background = activeTheme.colors.bg;
     document.body.style.color = activeTheme.colors.text;
@@ -306,16 +306,14 @@ function MainApp() {
               <input type="checkbox" checked={settings.checkToBottom} onChange={(e) => updateSetting('checkToBottom', e.target.checked)} />
               Move finished tasks to the bottom
             </label>
-            {!isDesktop && (
-              <label className="field">
-                Theme
-                <select value={settings.theme} onChange={(e) => updateSetting('theme', e.target.value)}>
-                  {themes.map((t) => (
-                    <option key={t.id} value={t.id}>{t.name}</option>
-                  ))}
-                </select>
-              </label>
-            )}
+            <label className="field">
+              Theme
+              <select value={settings.theme} onChange={(e) => updateSetting('theme', e.target.value)}>
+                {themes.map((t) => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
+              </select>
+            </label>
             {isDesktop && (
               <label className="field">
                 Analytics week starts on

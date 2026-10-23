@@ -16,6 +16,8 @@ export default async function handler(req, res) {
     }
     const themes = await upstream.json();
     res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    // The desktop app runs from its own origin, so it needs permission to read this list.
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(themes);
   } catch {
     res.status(502).json({ error: 'Could not load themes' });
