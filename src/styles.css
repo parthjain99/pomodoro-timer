@@ -458,3 +458,8 @@ html, body, * {
 /* center the connect links */
 .connect-links { justify-content: center; }
 
+
+/* icons for the connect links */
+.connect-links a { gap: 8px; }
+.connect-icon { display: inline-flex; width: 20px; height: 20px; }
+.connect-icon svg { width: 20px; height: 20px; }

@@ -9,6 +9,27 @@ const CONNECT_LINKS = [
   { label: 'Email', url: 'mailto:parthjain99@proton.me' },
 ];
 
+const ICONS = {
+  GitHub: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
+      <text x="12" y="16" textAnchor="middle" fontSize="8" fontWeight="700" fill="currentColor">GH</text>
+    </svg>
+  ),
+  LinkedIn: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor" />
+      <text x="12" y="16.5" textAnchor="middle" fontSize="10" fontWeight="700" fill="#ffffff">in</text>
+    </svg>
+  ),
+  Email: (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <path d="M2 7l10 6 10-6" />
+    </svg>
+  ),
+};
+
 const FEATURES = [
   ['Timer', 'focus and break cycles with adjustable lengths, a clock that counts down, and a mini always-on-top window.'],
   ['Task list', 'add tasks with an estimated number of pomodoros, mark them done, and pick the one you are working on.'],
@@ -46,6 +67,7 @@ export default function Footer() {
         <div className="card-body connect-links">
           {CONNECT_LINKS.filter((l) => l.url).map((l) => (
             <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">
+              <span className="connect-icon">{ICONS[l.label]}</span>
               {l.label}
             </a>
           ))}
