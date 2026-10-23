@@ -32,7 +32,6 @@ Get the installer for your system from the [v0.1.0 release](https://github.com/p
 | System | File | How to install |
 | --- | --- | --- |
 | macOS (Apple Silicon, M1 or later) | `Pomodoro-0.1.0-arm64.dmg` | Open the DMG and drag **Pomodoro** into Applications. The first time, right-click the app and choose **Open**. |
-| macOS (Intel) | `Pomodoro-0.1.0.dmg` | Same as above. |
 | Windows (64-bit) | `Pomodoro Setup 0.1.0.exe` | Run the installer. If SmartScreen warns, click **More info → Run anyway**. |
 | Linux (AppImage) | `Pomodoro-0.1.0.AppImage` | `chmod +x Pomodoro-0.1.0.AppImage`, then double-click it or run `./Pomodoro-0.1.0.AppImage`. |
 
