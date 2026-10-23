@@ -20,7 +20,7 @@ export default function CookieNotice() {
   return (
     <div className="cookie-notice" role="dialog" aria-label="Cookie notice">
       <p>
-        Pomodoro saves your tasks, projects, and settings in cookies on this device. Nothing is sent to a server.
+        Pomodoro saves your tasks, projects, and settings in cookies on this device. Your data is not sent to a server, but anonymous page-view stats are.
         Videos play from YouTube, which sets its own cookies. <a href="privacy.html">Privacy policy</a>
       </p>
       <button className="primary" onClick={accept}>OK</button>
