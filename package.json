@@ -50,8 +50,5 @@
       ],
       "category": "Utility"
     }
-  },
-  "dependencies": {
-    "@vercel/analytics": "^2.0.1"
   }
 }
