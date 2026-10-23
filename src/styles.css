@@ -454,3 +454,6 @@ html, body, * {
 .download-btn.primary:hover { filter: brightness(0.96); }
 .download-label { font-weight: 700; }
 .download-note { font-size: 13px; opacity: 0.8; }
+
+/* center the connect links */
+.connect-links { justify-content: center; }
