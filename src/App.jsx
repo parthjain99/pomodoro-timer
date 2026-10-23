@@ -93,20 +93,20 @@ function MainApp() {
   const clock = formatClock(left);
   const phaseLabel = PHASE_LABEL[phase];
 
-  // Optional ticking during focus only. Reads the volume through a ref so moving the
-  // slider does not restart the interval (and shift the tick timing).
+  // Ticking during focus, only in the last 10 seconds. Reads the volume and the remaining
+  // time through refs so moving the slider or the clock does not restart the interval.
   const tickVolumeRef = useRef(settings.tickVolume);
   tickVolumeRef.current = settings.tickVolume;
+  const leftRef = useRef(left);
+  leftRef.current = left;
   useEffect(() => {
-    if (!running || phase !== 'focus' || !settings.tick) return undefined;
-    const startedAt = Date.now();
-    let lastSec = 0;
-    // Poll briefly, but only play when a new whole second has elapsed since start, so
-    // ticks land on whole-second boundaries and never accumulate drift.
+    if (!running || phase !== focus || !settings.tick) return undefined;
+    let lastTicked = null;
+    // Each remaining second from 10 down to 1 gets exactly one tick.
     const id = setInterval(() => {
-      const sec = Math.floor((Date.now() - startedAt) / 1000);
-      if (sec > lastSec) {
-        lastSec = sec;
+      const remaining = leftRef.current;
+      if (remaining <= 10 && remaining > 0 && remaining !== lastTicked) {
+        lastTicked = remaining;
         playTick(tickVolumeRef.current);
       }
     }, 100);
@@ -271,7 +271,7 @@ function MainApp() {
                 checked={settings.tick}
                 onChange={(e) => updateSetting('tick', e.target.checked)}
               />
-              Ticking sound during focus
+              Tick during the last 10 seconds of focus
             </label>
             <label className="field">
               Tick volume ({settings.tickVolume})
