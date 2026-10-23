@@ -252,15 +252,6 @@ function MainApp() {
       <div className="columns">
         <div className="col">
           <section className="card timer-card">
-            <button
-              className={`pip-btn ${miniOpen ? 'active' : ''}`}
-              onClick={() => runCommand('mini')}
-              title="Mini timer (P)"
-              aria-label="Mini timer"
-            >
-              <PictureIcon />
-            </button>
-
             <div className="modes">
               {MODES.map((m) => (
                 <button
@@ -301,6 +292,14 @@ function MainApp() {
               </button>
               <button className="round-btn" onClick={() => runCommand('skip')} aria-label="Skip" title="Skip (S)">
                 <SkipIcon />
+              </button>
+              <button
+                className={`round-btn ${miniOpen ? 'active' : ''}`}
+                onClick={() => runCommand('mini')}
+                aria-label="Mini timer"
+                title="Mini timer (P)"
+              >
+                <PictureIcon />
               </button>
             </div>
           </section>

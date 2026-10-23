@@ -325,19 +325,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 
 /* ---- picture-in-picture button ---- */
 .timer-card { position: relative; }
-.pip-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 6px;
-  background: none;
-  border: none;
-  display: inline-flex;
-  border-radius: 8px;
-  color: var(--muted);
-}
-.pip-btn:hover { background: var(--bg); color: var(--text); filter: none; }
-.pip-btn.active { color: var(--violet); }
+.round-btn.active { background: var(--violet); border-color: var(--violet); color: #ffffff; }
 
 /* ---- settings extras ---- */
 .check-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); grid-column: 1 / -1; }
@@ -422,3 +410,21 @@ html, body, * {
 
 /* ---- logo in the header ---- */
 .brand-logo { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+
+/* mini timer close button */
+.mini { position: relative; }
+.mini-close {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+}
+.mini-close:hover { color: var(--text); background: var(--bg); filter: none; }
