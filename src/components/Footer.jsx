@@ -1,3 +1,5 @@
+import logo from '../assets/logo.png';
+
 import Downloads from './Downloads.jsx';
 
 // Links for the Connect with me section. A link with an empty url is hidden.
@@ -42,6 +44,7 @@ export default function Footer() {
           <span className="card-title">Connect with me</span>
         </div>
         <div className="card-body connect-links">
+          <img className="connect-logo" src={logo} alt="Pomodoro logo" />
           {CONNECT_LINKS.filter((l) => l.url).map((l) => (
             <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">
               {l.label}

@@ -457,3 +457,6 @@ html, body, * {
 
 /* center the connect links */
 .connect-links { justify-content: center; }
+
+/* logo in the connect section */
+.connect-logo { width: 88px; height: 88px; border-radius: 22px; object-fit: cover; display: block; width: 100%; max-width: 88px; margin: 0 auto; }
