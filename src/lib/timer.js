@@ -7,6 +7,7 @@ export const DEFAULT_SETTINGS = {
   cycleLen: 4,
   syncVideo: true,
   volume: 50,
+  loopVideo: false,
   alarm: true,
   tick: false,
   defaultVideo: null,

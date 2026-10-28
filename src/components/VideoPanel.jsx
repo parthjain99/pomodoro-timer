@@ -25,6 +25,7 @@ export default function VideoPanel({
   shouldPlay,
   volume,
   onVolume,
+  loop,
   library,
   setLibrary,
   onUserPlayback,
@@ -53,6 +54,7 @@ export default function VideoPanel({
     shouldPlay,
     enabled,
     volume,
+    loop,
     onUserPlayback,
   });
 

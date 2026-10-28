@@ -84,7 +84,8 @@ function loadYouTubeApi() {
 //  - onUserPlayback(playing): called when the video starts or pauses on its own
 //    (the user pressed play/pause in the player). Programmatic changes also
 //    fire this, so callers must treat it as idempotent.
-export function useYouTube({ containerId, shouldPlay, enabled, volume, onUserPlayback }) {
+//  - loop: when true, the video starts over from the beginning when it ends.
+export function useYouTube({ containerId, shouldPlay, enabled, volume, loop, onUserPlayback }) {
   const playerRef = useRef(null);
   const readyRef = useRef(false);
   const pendingRef = useRef(null); // { id, start } waiting for the player to be ready
@@ -95,6 +96,8 @@ export function useYouTube({ containerId, shouldPlay, enabled, volume, onUserPla
   shouldPlayRef.current = shouldPlay;
   const onUserPlaybackRef = useRef(onUserPlayback);
   onUserPlaybackRef.current = onUserPlayback;
+  const loopRef = useRef(loop);
+  loopRef.current = loop;
 
   const [ready, setReady] = useState(false);
   const [hasVideo, setHasVideo] = useState(false);
@@ -136,6 +139,12 @@ export function useYouTube({ containerId, shouldPlay, enabled, volume, onUserPla
                 }
               },
               onStateChange: (e) => {
+                // 0 = ended. Start over when looping is on.
+                if (e.data === 0 && loopRef.current) {
+                  e.target.seekTo(0, true);
+                  e.target.playVideo();
+                  return;
+                }
                 if (Date.now() < ignoreUntilRef.current) return;
                 // 1 = playing, 2 = paused. Ignore buffering and ended.
                 if (e.data === 1) onUserPlaybackRef.current?.(true);

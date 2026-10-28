@@ -331,6 +331,10 @@ function MainApp() {
               />
               Tick during the last 10 seconds of focus
             </label>
+            <label className="check-row">
+              <input type="checkbox" checked={settings.loopVideo} onChange={(e) => updateSetting('loopVideo', e.target.checked)} />
+              Loop the focus music video
+            </label>
             <div className="shortcuts">
               {SHORTCUTS.map(([key, label]) => (
                 <div key={key}>
@@ -404,6 +408,7 @@ function MainApp() {
           shouldPlay={running}
           volume={settings.volume}
           onVolume={(v) => updateSetting('volume', v)}
+          loop={settings.loopVideo}
           library={library}
           setLibrary={setLibrary}
           onUserPlayback={handleUserPlayback}
