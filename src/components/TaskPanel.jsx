@@ -22,7 +22,7 @@ export default function TaskPanel({ tasks, setTasks, selectedId, setSelectedId, 
       done: false,
       projectId: projectId || null,
     };
-    setTasks((prev) => [...prev, task]);
+    setTasks((prev) => [task, ...prev]);
     if (!selectedId) setSelectedId(task.id);
     setText('');
     setEst(1);
