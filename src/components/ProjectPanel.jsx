@@ -26,21 +26,20 @@ export default function ProjectPanel({ projects, setProjects, sessions, onDelete
         <span className="card-title">
           <FolderIcon /> Projects
         </span>
+        <form className="row-form project-add" onSubmit={addProject}>
+          <input
+            type="text"
+            placeholder="New project name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button type="submit">
+            <PlusIcon /> Add
+          </button>
+        </form>
       </div>
 
-      <form className="row-form project-add" onSubmit={addProject}>
-        <input
-          type="text"
-          placeholder="New project name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button type="submit">
-          <PlusIcon /> Add
-        </button>
-      </form>
-
-      <ul className="task-list scroll-list">
+      <ul className="project-strip">
         {projects.length === 0 && <li className="hint">Create a project, then assign tasks to it.</li>}
         {projects.map((p) => {
           const total = sumMinutes(

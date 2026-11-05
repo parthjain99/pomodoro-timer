@@ -292,8 +292,17 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
 
 /* ---- projects ---- */
-.project-add { padding: 0 18px 12px; }
+.project-add { flex: 0 1 360px; }
 .project-add button { display: inline-flex; align-items: center; gap: 6px; }
+/* projects sit in one full-width strip above the timer and tasks; chips scroll sideways */
+.project-strip { list-style: none; margin: 0; padding: 0 18px 14px; display: flex; gap: 8px; overflow-x: auto; }
+.project-strip li { display: flex; align-items: center; gap: 8px; flex: none; padding: 6px 6px 6px 12px; border: 1px solid var(--line); border-radius: 999px; }
+.project-strip li.hint { border: none; padding: 6px 0; }
+.project-strip .count { color: var(--muted); font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) {
+  .project-card .card-header { flex-wrap: wrap; }
+  .project-add { flex: 1 1 100%; }
+}
 .task-list li .project-select { font: inherit; font-size: 12px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--text); max-width: 120px; }
 .task-add select { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--text); }
 .task-list li .hint { padding: 6px 0; }
@@ -401,12 +410,10 @@ html, body, * {
 .row-top { display: none; }
 .desktop .col > .task-card { max-height: var(--timer-h, 360px); }
 .web .col > .task-card { max-height: none; }
-.col > .project-card .scroll-list { max-height: 131px; flex: none; }
 .col > .card { display: flex; flex-direction: column; min-height: 0; }
-.col > .card.task-card, .col > .card.project-card { overflow: hidden; }
+.col > .card.task-card { overflow: hidden; }
 @media (max-width: 900px) {
   .col > .task-card { max-height: none; }
-  .col > .project-card .scroll-list { max-height: 260px; }
 }
 
 /* ---- logo in the header ---- */

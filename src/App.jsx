@@ -347,6 +347,13 @@ function MainApp() {
         </div>
       )}
 
+      <ProjectPanel
+        projects={projects}
+        setProjects={setProjects}
+        sessions={sessions}
+        onDelete={deleteProject}
+      />
+
       <div className="columns">
         <div className="col">
         <section className="card timer-card">
@@ -424,12 +431,6 @@ function MainApp() {
           projects={projects}
           running={running}
           checkToBottom={settings.checkToBottom}
-        />
-        <ProjectPanel
-          projects={projects}
-          setProjects={setProjects}
-          sessions={sessions}
-          onDelete={deleteProject}
         />
           {isDesktop && <Analytics sessions={sessions} projects={projects} weekStart={settings.weekStart} />}
         </div>
